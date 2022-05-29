@@ -34,7 +34,10 @@ const resolvers = {
             }
             const token = signToken(user);
             return { token, user };
-        }
+        },
+
+        // Add a new user
+        // addUser: async (parent, {  });
     }
 };
 
