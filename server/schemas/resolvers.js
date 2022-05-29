@@ -32,12 +32,17 @@ const resolvers = {
             if (!validPwd) {
                 throw new AuthenticationError("Wrong password!");
             }
+            // the signToken method creates a JWT for this user
             const token = signToken(user);
             return { token, user };
         },
 
         // Add a new user
-        // addUser: async (parent, {  });
+        addUser: async (parent, args) => {
+            const newUser = User.create(args);
+            const token = signToken(newUser);
+            return { token, newUser };
+        }
     }
 };
 
