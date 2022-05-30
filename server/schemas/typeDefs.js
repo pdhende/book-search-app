@@ -29,6 +29,7 @@ input bookInput{
     bookId: String!
     image: String
     link: String
+    title: String!
 }
 
 type Query {

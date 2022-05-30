@@ -42,6 +42,17 @@ const resolvers = {
             const newUser = User.create(args);
             const token = signToken(newUser);
             return { token, newUser };
+        },
+
+        // Save a book's details
+        saveBook: async (parent, args, context) => {
+            console.log(context.user);
+            // console.log(context);
+            // if (context.user) {
+            //     return User.findByIdAndUpdate(context.user.id, {$push: { savedBooks : args }}, { new: true });
+            //   }
+              return User.findByIdAndUpdate('628d7ef81e20406ccc118dbf', {$push: { savedBooks : args }}, { new: true });
+            //   throw new AuthenticationError('Not logged in');
         }
     }
 };
