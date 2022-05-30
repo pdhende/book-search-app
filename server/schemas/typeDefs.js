@@ -33,7 +33,7 @@ input bookInput{
 }
 
 type Query {
-    me(_id: ID, username: String): User
+    me: User
 }
 
 type Mutation {
