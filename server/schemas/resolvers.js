@@ -15,7 +15,7 @@ const resolvers = {
             if (username) {
                 params.username = username;
             }
-            return await User.findOne(params).populate('savedBooks');
+            return await User.findOne(params);
         }
 
     },
