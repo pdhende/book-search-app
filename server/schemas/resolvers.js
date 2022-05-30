@@ -1,6 +1,6 @@
 const { Book, User } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require( '../utils/auth');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -45,14 +45,16 @@ const resolvers = {
         },
 
         // Save a book's details
-        saveBook: async (parent, args, context) => {
-            console.log(context.user);
-            // console.log(context);
-            // if (context.user) {
-            //     return User.findByIdAndUpdate(context.user.id, {$push: { savedBooks : args }}, { new: true });
-            //   }
-              return User.findByIdAndUpdate('628d7ef81e20406ccc118dbf', {$push: { savedBooks : args }}, { new: true });
-            //   throw new AuthenticationError('Not logged in');
+        saveBook: async (parent, { userId, input }) => {
+            return User.findOneAndUpdate(
+                { _id: userId },
+                {
+                    $addToSet: { savedBooks: input },
+                },
+                {
+                    new: true,
+                    runValidators: true,
+                });
         }
     }
 };
