@@ -45,16 +45,32 @@ const resolvers = {
         },
 
         // Save a book's details
-        saveBook: async (parent, { userId, input }) => {
-            return User.findOneAndUpdate(
-                { _id: userId },
-                {
-                    $addToSet: { savedBooks: input },
-                },
-                {
-                    new: true,
-                    runValidators: true,
-                });
+        saveBook: async (parent, { input }, context) => {
+            if (context.user) {
+                return User.findOneAndUpdate(
+                    { _id: context.user.id },
+                    {
+                        $addToSet: { savedBooks: input },
+                    },
+                    {
+                        new: true,
+                        runValidators: true,
+                    });
+            }
+            throw new AuthenticationError("Please login!");
+        },
+
+        // remove a book associated to the user
+        removeBook: async (parent, { bookID }, context) => {
+            // console.log(context.user);
+            if (context.user) {
+                return User.findOneAndUpdate(
+                    { _id: context.user.id },
+                    { $pull: { savedBooks: { bookId: bookID } } },
+                    { new: true }
+                );
+            }
+            throw new AuthenticationError("Please login!");
         }
     }
 };
