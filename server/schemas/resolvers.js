@@ -18,7 +18,7 @@ const resolvers = {
         //     return await User.findOne(params);
         // }
         me: async (parent, args, context) => {
-            if(context.user) {
+            if (context.user) {
                 return await User.findOne({
                     _id: context.user._id
                 });
@@ -53,17 +53,19 @@ const resolvers = {
         },
 
         // Save a book's details
-        saveBook: async (parent, args , context) => {
-            console.log(args);
+        saveBook: async (parent, { input }, context) => {
+            console.log(context.user);
+            // console.log(input);
+            console.log(context.user._id);
+
             if (context.user) {
                 return await User.findOneAndUpdate(
                     { _id: context.user._id },
                     {
-                        $addToSet: { savedBooks: args },
+                        $addToSet: { savedBooks: input },
                     },
                     {
-                        new: true,
-                        runValidators: true,
+                        new: true
                     });
             }
             throw new AuthenticationError("Please login!");
