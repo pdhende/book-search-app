@@ -18,6 +18,7 @@ const resolvers = {
         //     return await User.findOne(params);
         // }
         me: async (parent, args, context) => {
+            console.log(context.user)
             if (context.user) {
                 return await User.findOne({
                     _id: context.user._id
@@ -54,10 +55,7 @@ const resolvers = {
 
         // Save a book's details
         saveBook: async (parent, { input }, context) => {
-            console.log(context.user);
-            // console.log(input);
-            console.log(context.user._id);
-
+            
             if (context.user) {
                 return await User.findOneAndUpdate(
                     { _id: context.user._id },
