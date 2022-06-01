@@ -4,21 +4,8 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        // Query for a single user based on either user ID or username
-        // me: async (parent, { _id, username }) => {
-        //     const params = {};
-
-        //     if (_id) {
-        //         params._id = _id;
-        //     }
-
-        //     if (username) {
-        //         params.username = username;
-        //     }
-        //     return await User.findOne(params);
-        // }
         me: async (parent, args, context) => {
-            console.log(context.user)
+            // console.log(context.user)
             if (context.user) {
                 return await User.findOne({
                     _id: context.user._id
@@ -71,7 +58,6 @@ const resolvers = {
 
         // remove a book associated to the user
         removeBook: async (parent, { bookID }, context) => {
-            // console.log(context.user);
             if (context.user) {
                 return await User.findOneAndUpdate(
                     { _id: context.user._id },
