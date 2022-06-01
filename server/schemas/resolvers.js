@@ -35,9 +35,10 @@ const resolvers = {
 
         // Add a new user
         addUser: async (parent, args) => {
-            const newUser = User.create(args);
-            const token = signToken(newUser);
-            return { token, newUser };
+            const user = await User.create(args);
+            // console.log(newUser);
+            const token = signToken(user);
+            return { token, user };
         },
 
         // Save a book's details
