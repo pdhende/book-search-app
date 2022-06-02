@@ -29,6 +29,7 @@ This application is built using :
 * Express.js
 * MongoDB
 * Mongoose ODM
+* Third Party API - Google Books API
 
 ## How it works
 1.	Open URL of the application: 
